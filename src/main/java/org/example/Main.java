@@ -3,22 +3,18 @@ package org.example;
 import com.mongodb.client.FindIterable;
 import org.bson.Document;
 
+import javax.swing.*;
+
 public class Main {
     public static void main(String[] args) {
-        ConexionMongo conexion = new ConexionMongo("esfot", "esfot2024", "mongodb+srv", "cluster0.xzffuex.mongodb.net");
-        if (conexion.Conectado()){
-            System.out.println("Conexión establecida");
-            System.out.println("Bases de datos:");
-            for (String base : conexion.ListarBasesDeDatos()) {
-                System.out.println(base);
-                System.out.println("Colecciones:");
-                for (String coleccion : conexion.ListarColecciones(base)) {
-                    System.out.println(coleccion);
-                }
-            }
-            conexion.Desconectar();
-        } else {
-            System.out.println("No se pudo establecer la conexión");
-        }
+        //ConexionMongo conexion = new ConexionMongo("esfot", "esfot2024", "mongodb+srv", "cluster0.xzffuex.mongodb.net");
+        JFrame Ventana1 = new JFrame();
+        Ventana1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        Ventana1.setSize(300, 300);
+        Ventana1.setLocationRelativeTo(null);
+        Ventana1.setContentPane(new ConexionMDB().VentanaPrincipal);
+        Ventana1.pack();
+        Ventana1.setVisible(true);
+
     }
 }

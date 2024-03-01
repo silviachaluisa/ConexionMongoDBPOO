@@ -15,7 +15,8 @@ public class ConexionMDB {
     private JTextField Campo_cluster;
     private JComboBox servidor;
     private JComboBox <String> base_de_datos;
-    private JComboBox <String> coleccion;
+    private JComboBox <String> colecciones;
+    JPanel VentanaPrincipal;
     private ConexionMongo conexion;
 
     public ConexionMDB() {
@@ -24,26 +25,27 @@ public class ConexionMDB {
         base_de_datos.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                coleccion.removeAllItems();
+                base_de_datos.removeAllItems();
                 if (conn){
                     for (String base : conexion.ListarBasesDeDatos()) {
                         base_de_datos.addItem(base);
+                        System.out.println(base);
                     }
                 } else {
                     base_de_datos.addItem("No se pudo establecer la conexión");
                 }
             }
         });
-        coleccion.addActionListener(new ActionListener() {
+        colecciones.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (conn){
                     for (String coleccion : conexion.ListarColecciones(base_de_datos.getSelectedItem().toString())) {
-                        //coleccion.addItem(coleccion);
+                        colecciones.addItem(coleccion);
                         System.out.println(coleccion);
                     }
                 } else {
-                    coleccion.addItem("No se pudo establecer la conexión");
+                    colecciones.addItem("No se pudo establecer la conexión");
                 }
             }
         });
@@ -52,7 +54,7 @@ public class ConexionMDB {
     private void createUIComponents() {
         // TODO: place custom component creation code here
         base_de_datos = new JComboBox<String>();
-        coleccion = new JComboBox<String>();
+        colecciones = new JComboBox<String>();
     }
 
 }
