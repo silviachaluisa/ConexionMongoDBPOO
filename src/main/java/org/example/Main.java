@@ -5,7 +5,7 @@ import org.bson.Document;
 
 public class Main {
     public static void main(String[] args) {
-        ConexionMongo conexion = new ConexionMongo("esfot", "esfot2024", "mongodb+srv", "cluster0.xzffuex.mongodb.ne");
+        ConexionMongo conexion = new ConexionMongo("esfot", "esfot2024", "mongodb+srv", "cluster0.xzffuex.mongodb.net");
         if (conexion.Conectado()){
             System.out.println("Conexión establecida");
             System.out.println("Bases de datos:");

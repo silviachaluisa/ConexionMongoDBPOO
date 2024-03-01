@@ -34,13 +34,13 @@ public class ConexionMongo {
     }
 
     public void Desconectar() {
-        cliente.close();
+        this.cliente.close();
     }
 
     public MongoIterable<String> ListarBasesDeDatos() {
         try{
             // Obtiene la referencia a la base de datos
-            return cliente.listDatabaseNames();
+            return this.cliente.listDatabaseNames();
         } catch (MongoException me) {
             return null;
         }
@@ -49,7 +49,7 @@ public class ConexionMongo {
     public MongoIterable<String> ListarColecciones(String base) {
         try{
             // Obtiene la referencia a la coleccion en la base de datos
-            return cliente.getDatabase(base).listCollectionNames();
+            return this.cliente.getDatabase(base).listCollectionNames();
         } catch (MongoException me) {
             return null;
         }
@@ -58,7 +58,7 @@ public class ConexionMongo {
     // Método para crear base de datos y colección
     public void CrearBaseDeDatosYColeccion(String nombreBaseDatos, String nombreColeccion) {
         // Obtiene la referencia a la base de datos
-        MongoDatabase database = cliente.getDatabase(nombreBaseDatos);
+        MongoDatabase database = this.cliente.getDatabase(nombreBaseDatos);
         // Obtiene la referencia a la colección
         MongoCollection<Document> collection = database.getCollection(nombreColeccion);
         // Realiza alguna operación en la colección para asegurar su creación, como insertar un documento
@@ -68,7 +68,7 @@ public class ConexionMongo {
     // Método para insertar un documento
     public void InsertarDocumento(String nombreBaseDatos, String nombreColeccion, Document documento) {
         // Obtiene la referencia a la base de datos
-        MongoDatabase database = cliente.getDatabase(nombreBaseDatos);
+        MongoDatabase database = this.cliente.getDatabase(nombreBaseDatos);
         // Obtiene la referencia a la colección
         MongoCollection<Document> collection = database.getCollection(nombreColeccion);
         // Inserta el documento en la colección
@@ -78,7 +78,7 @@ public class ConexionMongo {
     // Método para consultar documentos
     public FindIterable<Document> ConsultarDocumentos(String nombreBaseDatos, String nombreColeccion) {
         // Obtiene la referencia a la base de datos
-        MongoDatabase database = cliente.getDatabase(nombreBaseDatos);
+        MongoDatabase database = this.cliente.getDatabase(nombreBaseDatos);
         // Obtiene la referencia a la colección
         MongoCollection<Document> collection = database.getCollection(nombreColeccion);
         // Realiza la consulta de todos los documentos en la colección
@@ -88,7 +88,7 @@ public class ConexionMongo {
     // Metodo para eliminar un documento
     public void EliminarDocumento(String nombreBaseDatos, String nombreColeccion, Document documento) {
         // Obtiene la referencia a la base de datos
-        MongoDatabase database = cliente.getDatabase(nombreBaseDatos);
+        MongoDatabase database = this.cliente.getDatabase(nombreBaseDatos);
         // Obtiene la referencia a la colección
         MongoCollection<Document> collection = database.getCollection(nombreColeccion);
         // Elimina el documento de la colección
