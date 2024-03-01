@@ -1,6 +1,8 @@
 package org.example;
 
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class ConexionMDB {
     private JTextField Insercion_descripcion;
@@ -12,4 +14,45 @@ public class ConexionMDB {
     private JTextField Campo_contraseña;
     private JTextField Campo_cluster;
     private JComboBox servidor;
+    private JComboBox <String> base_de_datos;
+    private JComboBox <String> coleccion;
+    private ConexionMongo conexion;
+
+    public ConexionMDB() {
+        conexion = new ConexionMongo("esfot", "esfot2024", "mongodb+srv", "cluster0.xzffuex.mongodb.net");
+        boolean conn = conexion.Conectado();
+        base_de_datos.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                coleccion.removeAllItems();
+                if (conn){
+                    for (String base : conexion.ListarBasesDeDatos()) {
+                        base_de_datos.addItem(base);
+                    }
+                } else {
+                    base_de_datos.addItem("No se pudo establecer la conexión");
+                }
+            }
+        });
+        coleccion.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (conn){
+                    for (String coleccion : conexion.ListarColecciones(base_de_datos.getSelectedItem().toString())) {
+                        //coleccion.addItem(coleccion);
+                        System.out.println(coleccion);
+                    }
+                } else {
+                    coleccion.addItem("No se pudo establecer la conexión");
+                }
+            }
+        });
+    }
+
+    private void createUIComponents() {
+        // TODO: place custom component creation code here
+        base_de_datos = new JComboBox<String>();
+        coleccion = new JComboBox<String>();
+    }
+
 }
