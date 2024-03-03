@@ -42,6 +42,7 @@ Si se busca nuevamente todos los registros, presionando el botón Buscar el regi
 
 
  
+ENLANCE A VIDEO DE YOUTUBE: https://www.youtube.com/watch?v=wvHVd7ThEOc
 
  
 
