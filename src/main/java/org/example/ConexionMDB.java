@@ -122,7 +122,7 @@ public class ConexionMDB {
                         documento.append("Nombre", Insercion_nombre.getText());
                         documento.append("Pasatiempo", Insercion_pasatiempo.getText());
                         documento.append("Descripcion", Insercion_descripcion.getText());
-                        conexion.InsertarDocumento(selectedDatabase, selectedCollection, documento);
+                        conexion.InsertarDocumento(selectedDatabase, selectedCollection, documento); // Inserta el documento en la coleccion seleccionada
                         JOptionPane.showMessageDialog(VentanaPrincipal, "Documento insertado");
                     } else {
                         // Si no se ha seleccionado una base de datos o una coleccion, muestra un mensaje de error
@@ -164,7 +164,7 @@ public class ConexionMDB {
                     String selectedDatabase = base_de_datos.getSelectedItem().toString();
                     String selectedCollection = colecciones.getSelectedItem().toString();
                     if (selectedDatabase != null && !selectedDatabase.isEmpty() && selectedCollection != null && !selectedCollection.isEmpty()) {
-                        FindIterable<Document>resultado = conexion.ConsultarDocumentos(selectedDatabase, selectedCollection);
+                        FindIterable<Document>resultado = conexion.ConsultarDocumentos(selectedDatabase, selectedCollection); // Obtiene los documentos de la coleccion seleccionada
                         for (Document doc : resultado) {
                             System.out.println(doc.toJson());
                         }
