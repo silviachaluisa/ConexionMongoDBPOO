@@ -31,21 +31,15 @@ El botón Insertar permite insertar los registros especificados en los campos an
 
  
 
- 
-
- 
-
-El botón Buscar permite buscar todos los documentos en la base de datos y colección especificada y los muestra por consola 
-
- 
+El botón Buscar permite buscar todos los documentos en la base de datos y colección especificada y los muestra por consola
+![image](https://github.com/silviachaluisa/ConexionMongoDBPOO/assets/133398724/bfdf48a3-db5f-498e-ae10-ea8c8066431b)
 
 El botón Eliminar permite eliminar un registro de la base de datos y colección, usando los campos anteriores como filtro 
-
-Una captura de pantalla de una computadora
-
-Descripción generada automáticamente 
+![image](https://github.com/silviachaluisa/ConexionMongoDBPOO/assets/133398724/736c5150-626d-4160-bef1-944fd85fb608)
 
 Si se busca nuevamente todos los registros, presionando el botón Buscar el registro especificado desaparece por que ha sido eliminado 
+![image](https://github.com/silviachaluisa/ConexionMongoDBPOO/assets/133398724/0a571ee9-9be2-4501-b1a4-af4f94f76efe)
+
 
  
 
