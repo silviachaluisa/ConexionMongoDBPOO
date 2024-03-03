@@ -1,13 +1,21 @@
 package org.example;
 
 import Exceptions.MongoConnectException;
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoClients;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
+
 import com.mongodb.client.MongoIterable;
 
 import javax.swing.*;
+import javax.swing.text.Document;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.logging.Filter;
+
 
 public class ConexionMDB {
     private JTextField Insercion_descripcion;
@@ -23,6 +31,7 @@ public class ConexionMDB {
     private JComboBox <String> colecciones;
     JPanel VentanaPrincipal;
     private JButton conectarButton;
+    private JButton buscarButton;
     private ConexionMongo conexion;
     private boolean conn;
 
@@ -100,6 +109,69 @@ public class ConexionMDB {
                 } else {
                     // Si no se establece adecuadamente la conexion, muestra un mensaje de error
                     colecciones.addItem("No se pudo establecer la conexión");
+                }
+            }
+        });
+
+        insertarButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                MongoClient mongoclient=MongoClients.create("mongodb+srv://<username>:<password>@cluster0.xzffuex.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0");
+                MongoClient database=mongoclient.getDatabase("ConexionMongoDB");
+                MongoClient<Document> collection=database.getCollection("Integrantes");
+
+                String Nombre=Insercion_nombre.getText();
+                String Pasatiempo=Insercion_pasatiempo.getText();
+                String Descripcion=Insercion_descripcion.getText();
+
+                Document documento=new Document();
+                documento.append("Nombre",Nombre);
+                documento.append("Pasatiempo",Pasatiempo);
+                documento.append("Descripcion",Descripcion);
+
+                collection.insertOne(documento);
+
+                System.out.println("Datos insertados exitosamente");
+                mongoclient.close();
+
+            }
+        });
+        eliminarButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (collection != null) {
+                    String nombreToDelete = JOptionPane.showInputDialog(Ventana1.this, "Ingrese el Nombre del documento a eliminar:");
+
+                    if (nombreToDelete != null && !nombreToDelete.isEmpty()) {
+                        collection.deleteOne(Filters.eq("Nombre", nombreToDelete));
+                        System.out.println("Documento eliminado exitosamente");
+                    } else {
+                        System.out.println("Operación de eliminación cancelada. El Nombre no puede estar vacío.");
+                    }
+                } else {
+                    System.out.println("No hay conexión establecida. No se puede realizar la eliminación.");
+                }
+            }
+        });
+        buscarButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (collection != null) {
+                    String nombreToSearch = JOptionPane.showInputDialog(Ventana1.this, "Ingrese el Nombre del documento a buscar:");
+
+                    if (nombreToSearch != null && !nombreToSearch.isEmpty()) {
+                        Document resultado = collection.find(Filters.eq("Nombre", nombreToSearch)).first();
+                        if (resultado != null) {
+                            System.out.println("Documento encontrado:");
+                            System.out.println(resultado.toJson());
+                        } else {
+                            System.out.println("No se encontraron documentos con el Nombre proporcionado.");
+                        }
+                    } else {
+                        System.out.println("Operación de búsqueda cancelada. El Nombre no puede estar vacío.");
+                    }
+                } else {
+                    System.out.println("No hay conexión establecida. No se puede realizar la búsqueda.");
                 }
             }
         });
