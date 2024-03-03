@@ -1,6 +1,7 @@
 package org.example;
 
 import Exceptions.MongoConnectException;
+import Exceptions.MongoOperationException;
 import com.mongodb.MongoException;
 import com.mongodb.client.*;
 import org.bson.Document;
@@ -128,6 +129,40 @@ public class ConexionMongo {
         MongoCollection<Document> collection = database.getCollection(nombreColeccion);
         // Realiza alguna operación en la colección para asegurar su creación, como insertar un documento
         collection.insertOne(new Document());
+    }
+
+    /**
+     * Elimina una base de datos existente en el servidor
+     * @param nombreBaseDatos Nombre de la base de datos a eliminar
+     * @throws MongoOperationException Si la eliminacion falla*/
+    public void EliminarBaseDeDatos(String nombreBaseDatos) throws MongoOperationException {
+        try{
+            // Obtiene la referencia a la base de datos
+            MongoDatabase database = this.cliente.getDatabase(nombreBaseDatos);
+            // Elimina la base de datos
+            database.drop();
+        }catch (MongoException me) {
+            throw new MongoOperationException("Error al eliminar la base de datos", me);
+        }
+    }
+
+    /**
+     * Elimina una colección existente en una base de datos
+     * @param nombreBaseDatos Nombre de la base de datos
+     * @param nombreColeccion Nombre de la colección a eliminar
+     * @throws MongoOperationException Si la eliminacion falla*/
+    public void EliminarColeccion(String nombreBaseDatos, String nombreColeccion) throws MongoOperationException {
+        try{
+            // Obtiene la referencia a la base de datos
+            MongoDatabase database = this.cliente.getDatabase(nombreBaseDatos);
+            // Obtiene la referencia a la colección
+            MongoCollection<Document> collection = database.getCollection(nombreColeccion);
+            // Elimina la colección
+            collection.drop();
+        }catch (MongoException me){
+            throw new MongoOperationException("Error al eliminar la colección", me);
+        }
+
     }
 
     // Método para insertar un documento

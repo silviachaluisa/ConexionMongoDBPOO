@@ -1,8 +1,5 @@
 package org.example;
 
-import com.mongodb.client.FindIterable;
-import org.bson.Document;
-
 import javax.swing.*;
 
 public class Main {
